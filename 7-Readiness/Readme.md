@@ -81,12 +81,6 @@ pg_isready -d <DB_NAME> -h <HOST_NAME> -p <PORT_NUMBER> -U <DB_USER>
 2. Add a livenessProbe to the PostgreSQL container using exec.
 3. Use the correct database name, host, port, and user in the command.
 4. Apply the changes and verify that the PostgreSQL Pod becomes Ready and Running.
-5. Execute the following SQL commands inside the database and observe what happens to the probes:  
-    ```sql
-    ALTER DATABASE kubernetestraining RENAME TO notkubernetestraining;
-    ALTER DATABASE notkubernetestraining RENAME TO kubernetestraining;
-    ```
-6. Rename the database back to its original name if needed.  
 
 **Example: Command Probe**
 ```yaml
