@@ -85,7 +85,7 @@ Now scale the backend from 1 Pod to 3 Pods.
    ```bash
    kubectl edit deployment todo-app-backend
    ```  
-   Then update the replicas field to `4` in the editor.
+   Then update the `replicas` field to `4` in the editor.
 
 1. Update in the `todo-app-deployment.yaml` file in your `todo-app-backend` Deployment the key `spec.replicas` to `3`
 2. Apply the change to the Kubernetes Cluster with the command  
