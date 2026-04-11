@@ -4,7 +4,7 @@
 
 In this exercise, you will gradually increase the visibility of the todo app until it becomes accessible from a browser.
 
-## Deploy the Todo App
+### Deploy the Todo App
 
 Before creating Services and an Ingress, the frontend and backend applications must already be running in the Kubernetes cluster.
 
@@ -81,36 +81,55 @@ The file `todo-app-frontend-service.yaml` already exists, but it is not complete
 7. If you receive an HTML response, the frontend Service is working correctly.  
     If not, inspect the Service definition and fix the issue.
 
-#### Ingress
+### Ingress
 
-If you have successfully completed the previous points, your applications (frontend and backend) are accessible within the Kubernetes Cluster.Finally an Ingress has to be created so that your application is accessible outside the Kubernetes Cluster, i.e. via the Internet.
+If you completed the previous steps successfully, both applications are now reachable inside the Kubernetes cluster.  
+To make the frontend accessible from outside the cluster, create an IngressRoute for Traefik.
 
-> Due the usage of Traefik Ingress Controller, we have to use the Ressource `Middleware`. In this case just replace the placeholder `/%YOURPATH%` with the exact same path as in the IngressRoute
+> Since Traefik is used as the Ingress controller, this exercise also uses the Traefik resource Middleware.  
+> Replace the placeholder path in the Middleware with exactly the same path that you define in the IngressRoute.
 
-1. Adjust the file `todo-app-ingress.yaml`
-    1. Adjust `metadata.name`. **Hint** This name has to be unique over the **whole** kubernetes cluster!
-    1. Define the `spec.routes.services` section to point to the `todo-app-frontend` service you created above.
-1. Visit the browser page on the path you chose and verify if you can see the todo-app
-    1. URL: `https://what.ever.host/<%YourUniquePath%>/
+1. Edit the file `todo-app-ingress.yaml`.
+2. Adjust the following fields:  
+    - metadata.name  
+    This name must be unique across the entire Kubernetes cluster.
+    - spec.routes.services  
+    Configure it to point to the todo-app-frontend Service created earlier.
+3. Create or apply the Ingress configuration:
+    ```bash
+    kubectl apply -f todo-app-ingress.yaml
+    ```
+4. Open the application in your browser using the path you defined in the IngressRoute:
+    ```text
+    https://what.ever.host/<YOUR_UNIQUE_PATH>/
+    ```
 
-> Do not miss the / at the end of the URL, otherwise you will just see a blank page!
+> Make sure the URL ends with /.  
+> Otherwise, the page may not load correctly.
 
 ### Question: What happens, if you restart the backend?
 
-1. Try it with `kubectl delete pod demo-backend-xxxx`
-    1. Replace xxxx with the unique id
-2. Refresh the ToDo App
+1. Delete one of the backend Pods:
+    ```bash
+    kubectl get pods
+    ```
+    ```bash
+    kubectl delete pod <TODO_APP_BACKEND_POD>
+    ```  
+    Replace `<TODO_APP_BACKEND_POD>` with the name of one of your backend Pods.
+2. Refresh the todo app in the browser.
+3. Observe what happens.
 
 ## Tips
 
 ### Commands
 
-Command | Use
+Command | Purpose
 --- | ---
-`kubectl get po` | get pods and their IDs
-`kubectl exec -it PODNAME /bin/sh` | exec into a container
-`nslookup some.dns.name` | look up IP for a service (Make sure to be inside a container in Kubernetes)
-`curl -vvvk http://some.dns.name/path/to/resource` | to make a get request to the resource
+`kubectl get pods` | List Pods and their names
+`kubectl exec -it POD_NAME -- /bin/sh` | Open a shell inside a container
+`nslookup SERVICE_NAME` | Resolve the IP address of a Service from inside a Pod
+`curl -vvvk http://HOST/PATH` | curl -vvvk http://HOST/PATH
 
 ## Links
 
