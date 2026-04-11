@@ -1,0 +1,25 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: %UNIQUE_INGRESS_ROUTE_NAME%
+spec:
+  entryPoints: []
+  routes:
+  - kind: Rule
+    match: PathPrefix(`/%YOUR_UNIQUE_PATH%`)
+    middlewares:
+    - name: todo-app-middleware
+    priority: 1
+    services:
+    - kind: Service
+      name: %FRONTEND_SERVICE%
+      port: %FRONTEND_SERVICE_PORT%
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: todo-app-middleware
+spec:
+  stripPrefix:
+    prefixes:
+    - /%YOUR_UNIQUE_PATH%

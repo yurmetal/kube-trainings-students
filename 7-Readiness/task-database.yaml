@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: postgres-database
+spec:
+  serviceName: postgres-database
+  replicas: 1
+  selector:
+    matchLabels:
+      exxeta-app: postgres-database
+  template:
+    metadata:
+      labels:
+        exxeta-app: postgres-database
+    spec:
+      containers:
+      - name: postgres-db
+        image: postgres:11.2
+        ports:
+        - containerPort: 5432
+        env:
+        - name: "POSTGRES_USER"
+          value: "postgres"
+        - name: "POSTGRES_PASSWORD"
+          value: "postgres"
+        # Dont change POSTGRES_DB
+        - name: "POSTGRES_DB"
+          value: "kubernetestraining"
+        volumeMounts:
+        - name: postgres-pvc
+          mountPath: /var/lib/postgresql/data
+          subPath: postgres
+  volumeClaimTemplates:
+  - metadata:
+      name: postgres-pvc
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 1Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-database
+spec:
+  ports:
+  - targetPort: 5432
+    port: 5432
+    protocol: TCP
+  selector:
+    exxeta-app: postgres-database
+  type: ClusterIP

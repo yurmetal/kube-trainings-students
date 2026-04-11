@@ -1,0 +1,64 @@
+# Deployments for frontend and backend
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-frontend
+  labels:
+    exxeta-app: demo
+    exxeta-typ: frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      exxeta-app: demo
+      exxeta-typ: frontend
+  template:
+    metadata:
+      labels:
+        exxeta-app: demo
+        exxeta-typ: frontend
+    spec:
+      containers:
+      - name: frontend
+        image: gitlabregistry.exxeta.info/kubernetes-schulung/demo_frontend:0.8.0
+        imagePullPolicy: Always
+        env:
+          - name: BASE_HREF
+            value: "./"
+        ports:
+        - containerPort: 9080
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-backend
+  labels:
+    exxeta-app: demo
+    exxeta-typ: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      exxeta-app: demo
+      exxeta-typ: backend
+  template:
+    metadata:
+      labels:
+        exxeta-app: demo
+        exxeta-typ: backend
+    spec:
+      containers:
+      - name: backend
+        image: gitlabregistry.exxeta.info/kubernetes-schulung/demo_backend:0.3.0
+        imagePullPolicy: Always
+        env:
+        - name: "DB_URI"
+          value: "jdbc:postgresql://postgres-database:5432/kubernetestraining"
+          # Adjust your DB_USER
+        - name: "DB_USER"
+          value: "postgres"
+          # Adjust your DB_PW
+        - name: "DB_PW"
+          value: "postgres"
+        ports:
+        - containerPort: 8080

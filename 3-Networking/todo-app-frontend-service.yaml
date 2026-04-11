@@ -1,0 +1,17 @@
+# Service inside of your namespace, pointing to the backend
+apiVersion: v1
+kind: Service
+metadata:
+  # Note that this name is also the DNS entry
+  name: todo-app-frontend
+spec:
+  ports:
+  # Below: Port of outgoing traffic (the port defined by the container)
+  - targetPort: <ADD_TARGET_PORT_HERE>
+    # Below: Port of incoming traffic
+    port: 80
+    protocol: TCP
+  selector:
+    # Add the same labels, to which deployment you want to reference...
+    <ADD_LABELS_HERE>
+  type: ClusterIP

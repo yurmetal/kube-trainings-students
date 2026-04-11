@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: todo-app
+spec:
+  containers:
+  - name: frontend
+    image: gitlabregistry.exxeta.info/kubernetes-schulung/demo_frontend:0.5.9
+    ports:
+    - containerPort: 9080
+  - name: backend
+    image: gitlabregistry.exxeta.info/kubernetes-schulung/demo_backend:0.3.0
+    ports:
+    - containerPort: 8080
+  # hostAliases is used by frontend
+  hostAliases:
+    - ip: "127.0.0.1"
+      hostnames:
+        - "todo-app-backend"
