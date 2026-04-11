@@ -80,8 +80,8 @@ The file `todo-app-frontend-service.yaml` already exists, but it is not complete
 
 1. Edit the file `todo-app-frontend-service.yaml`.
 2. Adjust the following fields:  
-    - spec.selector so that it matches the labels of your frontend Pods
-    - spec.ports[].targetPort so that it matches the port exposed by the frontend container
+    - `spec.selector` so that it matches the labels of your frontend Pods
+    - `spec.ports[].targetPort` so that it matches the port exposed by the frontend container
 3. Create the frontend Service:  
 
     ```bash
