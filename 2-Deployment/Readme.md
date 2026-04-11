@@ -52,8 +52,8 @@ In real-world scenarios, a Deployment usually contains only one application comp
 Running both frontend and backend in the same Deployment is not considered good practice.
 
 Split the todo-app Deployment in your `todo-app-deployment.yaml` file into two separate Deployments:
-   1. `todo-app-frontend`
-   2. `todo-app-backend`
+   - `todo-app-frontend`
+   - `todo-app-backend`
 
 You can keep both Deployments in the same file and separate them with `---`.
 1. Delete the existing todo-app Deployment:  
