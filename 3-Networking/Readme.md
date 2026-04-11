@@ -29,18 +29,22 @@ For the frontend to communicate with the backend, the backend must be reachable 
 A Service definition for the backend is already provided.
 
 1. Create the backend Service:  
+
     ```bash
     kubectl create -f todo-app-backend-service.yaml
     ```
 2. Verify that the Service `todo-app-backend` was created successfully:
+
     ```bash
     kubectl get services
     ```
 3. Verify that the `todo-app-backend` Service is correctly linked to the backend Pod.  
+
     ```bash
     kubectl describe svc todo-app-backend
     ```  
     Look for the Endpoints section in the output, for example:
+
     ```text
     Endpoints: 10.X.X.X:8080
     ```  
@@ -48,6 +52,7 @@ A Service definition for the backend is already provided.
 
 3. Test whether the backend Service is reachable.  
     First, open a shell in one of the `todo-app-frontend` Pods:  
+
    ```bash
    kubectl get pods
    ```
@@ -56,6 +61,7 @@ A Service definition for the backend is already provided.
    ```  
    Replace `<TODO_APP_FRONTEND_POD>` with the name of your frontend Pod.
 4. Inside the container, test the backend endpoint:  
+
     ```bash
     curl http://todo-app-backend:80/api/info
     ```
@@ -71,22 +77,26 @@ The file `todo-app-frontend-service.yaml` already exists, but it is not complete
     - spec.selector so that it matches the labels of your frontend Pods
     - spec.ports[].targetPort so that it matches the port exposed by the frontend container
 3. Create the frontend Service:  
+
     ```bash
     kubectl create -f todo-app-frontend-service.yaml
     ```
 4. Verify that the Service was created successfully:  
+
     ```bash
     kubectl get services
     ```
 5. Test whether the frontend Service is reachable.  
    First, open a shell in one of the `todo-app-backend` Pods:  
+
     ```bash
     kubectl get pods
     ```  
     ```bash
     kubectl exec -it <TODO_APP_BACKEND_POD> -- /bin/sh
     ```
-6. Inside the container, test the frontend Service:
+6. Inside the container, test the frontend Service:  
+
     ```bash
     curl http://todo-app-frontend:80/
     ```
@@ -113,7 +123,8 @@ To make the frontend accessible from outside the cluster, create an IngressRoute
     This name must be unique across the entire Kubernetes cluster.
     - spec.routes.services  
     Configure it to point to the todo-app-frontend Service created earlier.
-3. Create or apply the Ingress configuration:
+3. Create or apply the Ingress configuration:  
+
     ```bash
     kubectl apply -f todo-app-ingress.yaml
     ```
@@ -124,7 +135,8 @@ To make the frontend accessible from outside the cluster, create an IngressRoute
 
 ### Question: What happens, if you restart the backend?
 
-1. Delete one of the backend Pods:
+1. Delete one of the backend Pods:  
+
     ```bash
     kubectl get pods
     ```
