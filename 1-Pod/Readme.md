@@ -40,7 +40,7 @@ Create the Pod and investigate why one of the containers is failing.
 
 #### Hint
 
-> The Docker images used in todo-app-pod.yaml are available in Dockerhub.
+> The Docker images used in `todo-app-pod.yaml` are available in Dockerhub.
 > If you suspect that the image name or tag is incorrect, check Dockerhub and verify that the image and version exist.
 >
 > [Dockerhub Registry - Backend](https://hub.docker.com/repository/docker/ikirakosyan/demo_backend/tags)
@@ -69,9 +69,9 @@ Access the frontend container and test the backend endpoint /api/info on port 80
 
 ### Step 3
 You no longer need this Pod. Delete it to prepare for the next exercise:  
-    ```bash
-    kubectl delete -f todo-app-pod.yaml
-    ```
+```bash
+kubectl delete -f todo-app-pod.yaml
+```
 
 ## Links
 
