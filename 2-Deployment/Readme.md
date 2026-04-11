@@ -12,29 +12,20 @@ Create a Deployment definition based on the Pod definition from Task 1.
 
    **Example:**
    ```yaml
-      apiVersion: apps/v1
-      kind: Deployment
-      metadata:
-      name: todo-app
-      spec:
-      replicas: 1
-      selector:
-         matchLabels:
-            app: todo-app
-      template:
-         metadata:
-            labels:
-            app: todo-app
-         spec:
-            containers:
-            - name: frontend
-               image: <YOUR_FRONTEND_IMAGE>
-               ports:
-                  - containerPort: 9080
-            - name: backend
-               image: <YOUR_BACKEND_IMAGE>
-               ports:
-                  - containerPort: 8080
+   spec:
+      containers:
+      - name: frontend
+         image: <YOUR_FRONTEND_IMAGE>
+         ports:
+            - containerPort: 9080
+      - name: backend
+         image: <YOUR_BACKEND_IMAGE>
+         ports:
+            - containerPort: 8080
+      hostAliases:
+         - ip: "127.0.0.1"
+            hostnames:
+            - "todo-app-backend"
    ```
 
 2. Create the Deployment in the Kubernetes cluster:  
