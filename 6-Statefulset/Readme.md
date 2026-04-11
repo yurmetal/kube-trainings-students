@@ -24,57 +24,102 @@ Clean up the resources from the previous task.
     kubectl get pods
     ```
 
-1. Delete the Deployment `todo-app-postgres-database` from the previous task (5-Persistence) with the command `kubectl delete -f todo-app-postgres-database-deployment.yaml`
-1. Delete the your created PVC with the command `kubectl delete -f todo-app-postgres-database-pvc.yaml`
-1. Verify if the both recources are deleted
-   1. `kubectl get pvc` for PVC
-   2. `kubectl get po` for Postgres Database
+### Step 2
+Create a statefulset with a volumeClaimTemplate.  
+Now update the file `todo-app-postgres-database-statefulset.yaml` so that each PostgreSQL Pod automatically gets its own PVC.
 
-#### Step 2: Create a statefulset with a volumeClaimTemplate
+1. Add a volumeClaimTemplates section to the StatefulSet with the following configuration:  
+    - Name: `postgres-pvc`
+    - Access mode: `ReadWriteOnce`
+    - Storage size: `1Gi`
+2. Mount the volume in the PostgreSQL container with the following settings:  
+    - Volume name: `postgres-pvc`
+    - mountPath: `/var/lib/postgresql/data`
+    - subPath: `postgres`
+3. Create the StatefulSet:  
+    ```bash
+    kubectl create -f todo-app-postgres-database-statefulset.yaml
+    ```
+4. Verify the status of the StatefulSet and its Pod:  
+    ```bash
+    kubectl get statefulsets
+    ```  
+    ```bash
+    kubectl get pods
+    ```  
+5. Verify that a PersistentVolumeClaim was created automatically:  
+    ```bash
+    kubectl get persistentvolumeclaims
+    ```  
+    or
+    ```bash
+    kubectl get pvc
+    ```  
 
-1. Append in the file `todo-app-postgres-database-statefulset.yaml`a volumeClaimTemplate to the statefulset with the following requirements:
-    1. Name: postgres-pvc
-    1. AccessMode: ReadWriteOnce
-    1. Storage Size 1Gi
-1. Mount the volume like in the persistent task with the following details.
-    1. The name should be matched with pvc name `postgres-pvc`
-    1. Mountpath: `/var/lib/postgresql/data`
-    1. Subpath: `postgres`
-1. Deploy the statefulset with the command `kubectl create -f todo-app-postgres-database-statefulset.yaml`
-1. Check the status of your statefulset
-    1. `kubectl get statefulset`
-    1. `kubectl get pod`
-1. Check if a persitent volume claim is created and the status of it!
-    1. `kubectl get persistentvolumeclaim` OR
-    1. `kubectl get pvc`
-
-**VolumeClaimTemplates Example:**
-```
-  spec:
-    ...
+**Example: volumeClaimTemplates**
+```yaml
+spec:
   volumeClaimTemplates:
-  - metadata:
-      name: my-volume-claim-name
-    spec:
-      accessModes: [ "ReadWriteOnce" ]
-      resources:
-        requests:
-          storage: 1Gi
+    - metadata:
+        name: postgres-pvc
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 1Gi
 ```
 
-#### Step 3: Scale up your StatefulSet
+### Step 3
+Scale up the StatefulSet.  
+Imagine that the database is under heavy load and needs to be scaled.  
+Scale up the PostgreSQL StatefulSet and observe what happens.  
 
-Imagine, our database is overwhelmed and has to be scaled up to process the requests quickly. Scale up your database statefulset and see what happens
+1. Increase the number of replicas to `2` using one of the following methods:  
+    ```bash
+    kubectl scale statefulset todo-app-postgres-database --replicas=2
+    ```
+    or  
+    ```bash
+    kubectl edit statefulset todo-app-postgres-database
+    ```  
+    or update `spec.replicas` in `todo-app-postgres-database-statefulset.yaml` and apply the change:
+    ```bash
+    kubectl apply -f todo-app-postgres-database-statefulset.yaml
+    ```
+2. Check the StatefulSet:  
+    ```bash
+    kubectl get statefulsets
+    ```
+3. Check the Pods:  
+    ```bash
+    kubectl get pods
+    ```
+4. Check how many PersistentVolumeClaims currently exist:  
+    ```bash
+    kubectl get pvc
+    ```
+5. Scale the StatefulSet back down to `1` replica.
+6. Check how many PersistentVolumeClaims still exist and what state they are in:  
+    ```bash
+    kubectl get pvc
+    ```
+7. Delete the StatefulSet:  
+    ```bash
+    kubectl delete -f todo-app-postgres-database-statefulset.yaml
+    ```
+8. Check whether the automatically created PVCs still exist:  
+    ```bash
+    kubectl get pvc
+    ```
 
-1. Scale up the database statefulset like a deployment (you learned it already in the deployment task ;)
-    1. `kubectl scale statefulset todo-app-postgres-database --replicas=2` OR
-    1. `kubectl edit statefulset todo-app-postgres-database` OR
-    2. Adapt `spec.replicas` in the `todo-app-postgres-database-statefulset.yaml` with the command `kubectl apply -f todo-app-postgres-database-statefulset.yaml`
-2. Check the statefulset
-3. Check the pods
-4. Check how many persistent volume claims (pvc) currently exist.
-5. Now scale down your statefulset to 1 replica
-6. Check how many persistent volume claims (pvc) currently exist and the state each of them.
-7. Check what happens, if you delete the statefulset
-    1. `kubectl delete -f todo-app-postgres-database-statefulset.yaml`
-    2. Check if the automatic created pvc are still available?
+### Observation
+A StatefulSet creates stable Pod identities and can automatically create one PVC per Pod through volumeClaimTemplates.  
+When scaling down or deleting the StatefulSet, the PVCs are usually not deleted automatically.  
+This protects persistent data from being removed unintentionally.  
+
+## Links
+
+[Statefulset Documentation](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/)  
+
+[PersistentVolumeClaim Documentation](https://kubernetes.io/docs/concepts/storage/persistent-volumes/)

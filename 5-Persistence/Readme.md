@@ -87,6 +87,16 @@ To make it persistent, create a PersistentVolumeClaim (PVC) and later mount it i
 
 1. Create a file named `todo-app-postgres-database-pvc.yaml`.
 2. Define a `PersistentVolumeClaim` based on the example below.
+3. Use a unique name for your PVC.  
+4. Request a storage size of 1Gi.  
+5. Deploy the PVC:  
+    ```bash
+    kubectl apply -f todo-app-postgres-database-pvc.yaml
+    ```
+6. Verify that the PVC was created successfully:  
+    ```bash
+    kubectl get pvc
+    ```
 
 **Example: PersistentVolumeClaim**
 ```yaml
@@ -101,17 +111,6 @@ spec:
     requests:
       storage: 1Gi
 ```
-
-3. Use a unique name for your PVC.  
-4. Request a storage size of 1Gi.  
-5. Deploy the PVC:  
-    ```bash
-    kubectl apply -f todo-app-postgres-database-pvc.yaml
-    ```
-6. Verify that the PVC was created successfully:  
-    ```bash
-    kubectl get pvc
-    ```
 
 ### Step 5
 Mount the PVC into the PostgreSQL Deployment.  
