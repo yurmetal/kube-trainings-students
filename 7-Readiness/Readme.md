@@ -4,9 +4,9 @@
 
 In this exercise, you will add readiness and liveness probes to the frontend, backend, and database.  
 Each container will use a different probe type:  
-- Frontend: TCP probe
-- Backend: HTTP probe
-- Database: command-based probe
+  - Frontend: TCP probe
+  - Backend: HTTP probe
+  - Database: command-based probe
 
 ## Step 1
 Add readiness and liveness probes to the frontend using TCP. 
@@ -114,10 +114,10 @@ kubectl exec -it <POD_NAME> -- /bin/sh
 ```
 
 ## Questions to observe during the exercise
-- What is the difference between readiness and liveness?
-- What happens when a readiness probe fails?
-- What happens when a liveness probe fails?
-- Why is it useful to use different probe types for different applications?
+  - What is the difference between readiness and liveness?
+  - What happens when a readiness probe fails?
+  - What happens when a liveness probe fails?
+  - Why is it useful to use different probe types for different applications?
 
 ## Links
 
