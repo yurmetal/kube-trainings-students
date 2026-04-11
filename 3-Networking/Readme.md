@@ -99,10 +99,7 @@ To make the frontend accessible from outside the cluster, create an IngressRoute
     ```bash
     kubectl apply -f todo-app-ingress.yaml
     ```
-4. Open the application in your browser using the path you defined in the IngressRoute:
-    ```text
-    https://what.ever.host/<YOUR_UNIQUE_PATH>/
-    ```
+4. Open the application in your browser using the path you defined in the IngressRoute: `https://what.ever.host/<YOUR_UNIQUE_PATH>/`
 
 > Make sure the URL ends with /.  
 > Otherwise, the page may not load correctly.
