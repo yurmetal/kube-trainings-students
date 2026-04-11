@@ -5,11 +5,11 @@ metadata:
 spec:
   containers:
   - name: frontend
-    image: gitlabregistry.exxeta.info/kubernetes-schulung/demo_frontend:0.5.9
+    image: ikirakosyan/demo_frontend:0.5.9
     ports:
     - containerPort: 9080
   - name: backend
-    image: gitlabregistry.exxeta.info/kubernetes-schulung/demo_backend:0.3.0
+    image: ikirakosyan/demo_backend:0.3.0
     ports:
     - containerPort: 8080
   # hostAliases is used by frontend

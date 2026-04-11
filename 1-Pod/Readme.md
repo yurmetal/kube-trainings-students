@@ -1,32 +1,33 @@
 # Pods
 
 ## Exercise
-In this exercise you will learn how to deploy a simple pod with two containers and how to inspect problems.
 
-### Prerequisite
-> Ensure, you are on the correct namespace with the command `kubectl config view --minify --output 'jsonpath={..namespace}'; echo`
+In this exercise, you will learn how to deploy a simple Pod with two containers and how to inspect and fix problems.
 
-### Step 1
-1. Run `kubectl create -f todo-app-pod.yaml` to create your pod in the Kubernetes Cluster
-2. Check with the command `kubectl get po`, if your pod and also the containers in it are running.
-3. Identify the failed container and fix the problem
-    1. Use the command `kubectl describe po todo-app`, to see what happens with your pod
-    2. Take a look at the bottom of the output (Section Events)
-    3. Inspect and fix the error in the `todo-app-pod.yaml` file
-4. Redeploy the pod, to apply the fix which you added
+## Prerequisite
+
+Make sure you are working in the correct namespace:
+
+### Step 1 - Create the Pod and investigate why one of the containers is failing.
+1. Create the Pod in the Kubernetes cluster: `kubectl create -f todo-app-pod.yaml`
+2. Check whether the Pod is running: `kubectl get pods`
+3. Identify the failed container and investigate the problem: `kubectl describe pod todo-app`
+4. Look at the Events section at the bottom of the output.
+5. Inspect the todo-app-pod.yaml file and fix the error.
+6. Redeploy the Pod so that your changes take effect:
     1. `kubectl delete -f todo-app-pod.yaml`
     2. `kubectl create -f todo-app-pod.yaml`
-5. Check, if your fix is solving the problem
-6. If all containers are up, try to read the logs from your `backend` container with the command `kubectl logs -f todo-app -c backend`
+7. Verify that your fix solved the problem.
+8. Once both containers are running, read the logs of the backend container: `kubectl logs -f todo-app -c backend`
 
 #### Hint
 
-> The docker images which are used in the todo-app-pod.yaml are available in Gitlab.
-> If you notice, that something is wrong with the image, then take a look on Gitlab and verify if your docker images
-> and also the version/tags which are in defined the task.yaml exists in dockerHub.
+> The Docker images used in todo-app-pod.yaml are available in Dockerhub.
+> If you suspect that the image name or tag is incorrect, check Dockerhub and verify that the image and version exist.
 >
-> [Gitlab - Backend](https://gitlabci.exxeta.com/kubernetes-schulung/demo_backend/container_registry/336) | [Gitlab - Frontend](https://gitlabci.exxeta.com/kubernetes-schulung/demo_frontend/container_registry/332)
+> [Dockerhub Registry - Backend](https://hub.docker.com/repository/docker/ikirakosyan/demo_backend/tags)
 >
+> [Dockerhub Registry - Frontend](https://hub.docker.com/repository/docker/ikirakosyan/demo_frontend/tags)
 
 ### Step 2
 Gain access to your `frontend` container and check out the `/api/info` endpoint of our backend on Port `8080`
