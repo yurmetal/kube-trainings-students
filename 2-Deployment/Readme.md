@@ -1,30 +1,41 @@
 # Deployment
 
-## Tasks
+## Exercise
 
-In this exercise, we will create a deployment definition based on the pod definition in task 1, try some features of a deployment and split this into two deployments to show the real life usage of a deployment
+In this exercise, you will create a Deployment based on the Pod definition from the previous task.  
+You will also explore some Deployment features and then split the application into two separate Deployments to reflect a more realistic setup.
 
-### Exercise
+### Step 1
+Create a Deployment definition based on the Pod definition from Task 1.
 
-#### Step 1
+1. Extend the file `todo-app-deployment.yaml` with a Pod template based on the Pod definition from Task 1.
+2. Create the Deployment in the Kubernetes cluster: `kubectl create -f todo-app-deployment.yaml`
+3. Verify that the Deployment and Pod were created successfully:  
+   1. `kubectl get deployments`  
+   2. `kubectl get pods`
+4. If you get an error, inspect the Deployment definition, fix the issue, and deploy it again.
 
-Create a deployment definition based on the pod definition from task 1
+#### Hint
 
-1. Extend the file `todo-app-deployment.yaml` by a pod template based pod definition of task 1
-1. Run `kubectl create -f todo-app-deployment.yaml` to create your extended deployment definition in the Kubernetes Cluster. 
+> In the best case, the Deployment is created without errors.  
+> If an error occurs, review the YAML definition carefully and correct it before continuing.
 
->In best case you should not see an error. If you got an error after executing the command above, you should verify the deployment definition and fix it. You can verify the status of your deployment with the command `kubectl get deployment` and `kubectl get pod`
-
-#### Step 2
+### Step 2
  
-Only in very few cases a deployment contains multiple container. Deploying a backend and frontend in the same deployment is not a good practice. So split the Deployment in your `todo-app-deployment.yaml` into 2 Deployments. One of them should be with the Deployment name `todo-app-frontend` and the other one `todo-app-backend`. You can put the two Deployment it in the same file. Just separate it with `---`
+In real-world scenarios, a Deployment usually contains only one application component.
+Running both frontend and backend in the same Deployment is not considered good practice.
 
-1. Undeploy the `todo-app` with the command `kubectl delete -f todo-app-deployment.yaml`
-1. Separate your `todo-app` Deployment into two Deployments and rename it
-   1. Frontend: `todo-app-frontend`
-   1. Backend: `todo-app-backend`
-   1. Also take care to keep for each deployment the labels unique. For example adjust the `app.kubernetes.io/component` label for each service
-1. Deploy your deployments with the `kubectl create -f ...` command and verify, if they're running without issues. You should have two deployments (each deployment 1 pod).
+Split the todo-app Deployment in your todo-app-deployment.yaml file into two separate Deployments:
+   1. todo-app-frontend
+   2. todo-app-backend
+
+You can keep both Deployments in the same file and separate them with `---`.
+1. Delete the existing todo-app Deployment: `kubectl delete -f todo-app-deployment.yaml`
+2. Split the todo-app Deployment into two separate Deployments:
+   1. Frontend: todo-app-frontend
+   2. Backend: todo-app-backend
+3. Make sure each Deployment uses unique labels.  
+   For example, adjust the label `app.kubernetes.io/component` so that it correctly identifies either frontend or backend.
 
 #### Step 3
 

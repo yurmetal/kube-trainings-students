@@ -8,7 +8,9 @@ In this exercise, you will learn how to deploy a simple Pod with two containers 
 
 Make sure you are working in the correct namespace:
 
-### Step 1 - Create the Pod and investigate why one of the containers is failing.
+### Step 1
+Create the Pod and investigate why one of the containers is failing.
+
 1. Create the Pod in the Kubernetes cluster: `kubectl create -f todo-app-pod.yaml`
 2. Check whether the Pod is running: `kubectl get pods`
 3. Identify the failed container and investigate the problem: `kubectl describe pod todo-app`
@@ -29,7 +31,7 @@ Make sure you are working in the correct namespace:
 >
 > [Dockerhub Registry - Frontend](https://hub.docker.com/repository/docker/ikirakosyan/demo_frontend/tags)
 
-### Step 2 - Access the frontend container and test the backend endpoint /api/info on port 8080.
+### Step 2
 Access the frontend container and test the backend endpoint /api/info on port 8080.
 
 1. Open a shell inside the frontend container: `kubectl exec -it POD_NAME -c frontend -- /bin/sh`  
@@ -44,7 +46,6 @@ Access the frontend container and test the backend endpoint /api/info on port 80
 > You can use the following pattern to test whether an application endpoint is accessible: `curl HOST:PORT/PATH`
 
 ### Step 3
-
 You no longer need this Pod. Delete it to prepare for the next exercise: `kubectl delete -f todo-app-pod.yaml`
 
 ## Links
