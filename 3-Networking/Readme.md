@@ -10,10 +10,12 @@ Before creating Services and an Ingress, the frontend and backend applications m
 
 1. If you successfully completed **Task 2 - Deployment**, you can continue directly.
 2. Otherwise, deploy the provided solution from Task 2:  
+
     ```bash
     kubectl create -f ../2-Deployment/todo-app-deployment.yaml
     ```
 3. Verify that both Deployments and Pods are running:  
+
     ```bash
     kubectl get deployments
     ```  
