@@ -91,6 +91,12 @@ The file `todo-app-frontend-service.yaml` already exists, but it is not complete
 7. If you receive an HTML response, the frontend Service is working correctly.  
     If not, inspect the Service definition and fix the issue.
 
+#### Hint
+
+> In Task 2, the frontend used a custom configuration to reach the backend (e.g. `localhost` or a host mapping).  
+> After separating the applications, this configuration may no longer work.  
+> Think about how the frontend can now access the backend.  
+
 ### Ingress
 
 If you completed the previous steps successfully, both applications are now reachable inside the Kubernetes cluster.  
