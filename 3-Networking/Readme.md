@@ -50,7 +50,7 @@ A Service definition for the backend is already provided.
     ```  
     This indicates that the Service is correctly connected to the backend Pod.
 
-3. Test whether the backend Service is reachable.  
+4. Test whether the backend Service is reachable.  
     First, open a shell in one of the `todo-app-frontend` Pods:  
 
    ```bash
@@ -60,18 +60,18 @@ A Service definition for the backend is already provided.
    kubectl exec -it <TODO_APP_FRONTEND_POD> -- /bin/sh
    ```  
    Replace `<TODO_APP_FRONTEND_POD>` with the name of your frontend Pod.
-4. Inside the container, test the backend endpoint:  
+5. Inside the container, test the backend endpoint:  
 
     ```bash
     curl http://todo-app-backend:80/api/info
     ```
-5. If the response contains the following text, the backend Service is working correctly: `We <3 Kubernetes`
+6. If the response contains the following text, the backend Service is working correctly: `We <3 Kubernetes`
 
-#### Hint
+    #### Hint
 
-> In Task 2, the frontend used a custom configuration to reach the backend (e.g. `localhost` or a host mapping).  
-> After separating the applications, this configuration may no longer work.  
-> Think about how the frontend can now access the backend.  
+    > In Task 2, the frontend used a custom configuration to reach the backend (e.g. `localhost` or a host mapping).  
+    > After separating the applications, this configuration may no longer work.  
+    > Think about how the frontend can now access the backend.  
 
 ### Frontend Service
 
