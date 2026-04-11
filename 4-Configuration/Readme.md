@@ -106,7 +106,7 @@ kubectl get secrets ;
 kubectl describe secret todo-app-basic-auth
 ```
 
-### Secrets
+## Links
 
 [Secret Documentation](https://kubernetes.io/docs/concepts/configuration/secret/)
 
