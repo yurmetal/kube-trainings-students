@@ -67,6 +67,12 @@ A Service definition for the backend is already provided.
     ```
 5. If the response contains the following text, the backend Service is working correctly: `We <3 Kubernetes`
 
+#### Hint
+
+> In Task 2, the frontend used a custom configuration to reach the backend (e.g. `localhost` or a host mapping).  
+> After separating the applications, this configuration may no longer work.  
+> Think about how the frontend can now access the backend.  
+
 ### Frontend Service
 
 Now create a Service for the `todo-app-frontend` Pods.  
@@ -102,12 +108,6 @@ The file `todo-app-frontend-service.yaml` already exists, but it is not complete
     ```
 7. If you receive an HTML response, the frontend Service is working correctly.  
     If not, inspect the Service definition and fix the issue.
-
-#### Hint
-
-> In Task 2, the frontend used a custom configuration to reach the backend (e.g. `localhost` or a host mapping).  
-> After separating the applications, this configuration may no longer work.  
-> Think about how the frontend can now access the backend.  
 
 ### Ingress
 
