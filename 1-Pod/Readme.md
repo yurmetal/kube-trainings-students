@@ -6,7 +6,10 @@ In this exercise, you will learn how to deploy a simple Pod with two containers 
 
 ## Prerequisite
 
-Make sure you are working in the correct namespace:
+Make sure you are working in the correct namespace:  
+```bash
+kubectl config view --minify --output 'jsonpath={..namespace}'; echo
+```
 
 ### Step 1
 Create the Pod and investigate why one of the containers is failing.
@@ -25,6 +28,14 @@ Create the Pod and investigate why one of the containers is failing.
     ```
 4. Look at the Events section at the bottom of the output.
 5. Inspect the todo-app-pod.yaml file and fix the error.
+
+    #### Hint
+
+    > The Docker images used in `todo-app-pod.yaml` are available in Dockerhub.  
+    > If you suspect that the image name or tag is incorrect, check Dockerhub and verify that the image and version exist.  
+    > [Dockerhub Registry - Backend](https://hub.docker.com/repository/docker/ikirakosyan/demo_backend/tags)  
+    > [Dockerhub Registry - Frontend](https://hub.docker.com/repository/docker/ikirakosyan/demo_frontend/tags)
+
 6. Redeploy the Pod so that your changes take effect:
     ```bash
     kubectl delete -f todo-app-pod.yaml
@@ -37,15 +48,6 @@ Create the Pod and investigate why one of the containers is failing.
     ```bash
     kubectl logs -f todo-app -c backend
     ```
-
-#### Hint
-
-> The Docker images used in `todo-app-pod.yaml` are available in Dockerhub.
-> If you suspect that the image name or tag is incorrect, check Dockerhub and verify that the image and version exist.
->
-> [Dockerhub Registry - Backend](https://hub.docker.com/repository/docker/ikirakosyan/demo_backend/tags)
->
-> [Dockerhub Registry - Frontend](https://hub.docker.com/repository/docker/ikirakosyan/demo_frontend/tags)
 
 ### Step 2
 Access the frontend container and test the backend endpoint /api/info on port 8080.
