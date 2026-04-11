@@ -15,4 +15,3 @@ spec:
         app.kubernetes.io/component: full-app
     spec:
       # ... Add here the pod specification from task 1
-      
