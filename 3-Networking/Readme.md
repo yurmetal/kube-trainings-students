@@ -1,16 +1,28 @@
 # Networking
 
-## Tasks
+## Exercise
 
-In this scenario we will slowly increase the - let's say "visibility" - of our todo-app until we can access it via browser.
+In this exercise, you will gradually increase the visibility of the todo app until it becomes accessible from a browser.
 
-### Deploy your todo app
+## Deploy the Todo App
 
-1. To be able to access the applications later via the services, you must first deploy them on the Kubernetes Cluster. If you already finished `Task 2 - Deployment` successfully, you don't need to do anything. Otherwise deploy the `solution/solution-todo-app-deployment.yaml` file from `Task 2 - Deployment`
+Before creating Services and an Ingress, the frontend and backend applications must already be running in the Kubernetes cluster.
+
+1. If you successfully completed **Task 2 - Deployment**, you can continue directly.
+2. Otherwise, deploy the provided solution from Task 2: `kubectl create -f solution/solution-todo-app-deployment.yaml`
+3. Verify that both Deployments and Pods are running:  
+    1. `kubectl get deployments`
+    2. `kubectl get pods`
 
 ### Backend Service
 
-So that our frontend can fetch the data from the backend, the backend must be accessible in the network. Therefore a service must be created for the backend. There is already a Service definition file for the backend.
+For the frontend to communicate with the backend, the backend must be reachable within the cluster network.  
+A Service definition for the backend is already provided.
+
+1. Create the backend Service:  
+    ```bash
+    kubectl create -f todo-app-backend-service.yaml
+    ```
 
 1. Run the command `kubectl create -f todo-app-backend-service.yaml` to create a service for the backend
 1. Verify with the command `kubectl get service` if your service `todo-app-backend` is created
