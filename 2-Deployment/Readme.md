@@ -9,10 +9,17 @@ You will also explore some Deployment features and then split the application in
 Create a Deployment definition based on the Pod definition from Task 1.
 
 1. Extend the file `todo-app-deployment.yaml` with a Pod template based on the Pod definition from Task 1.
-2. Create the Deployment in the Kubernetes cluster: `kubectl create -f todo-app-deployment.yaml`
+2. Create the Deployment in the Kubernetes cluster:  
+   ```bash
+   kubectl create -f todo-app-deployment.yaml
+   ```
 3. Verify that the Deployment and Pod were created successfully:  
-   1. `kubectl get deployments`  
-   2. `kubectl get pods`
+   ```bash
+   kubectl get deployments
+   ```  
+   ```bash
+   kubectl get pods
+   ```
 4. If you get an error, inspect the Deployment definition, fix the issue, and deploy it again.
 
 #### Hint
@@ -30,17 +37,26 @@ Split the todo-app Deployment in your `todo-app-deployment.yaml` file into two s
    2. `todo-app-backend`
 
 You can keep both Deployments in the same file and separate them with `---`.
-1. Delete the existing todo-app Deployment: `kubectl delete -f todo-app-deployment.yaml`
+1. Delete the existing todo-app Deployment:  
+   ```bash
+   kubectl delete -f todo-app-deployment.yaml
+   ```
 2. Split the todo-app Deployment into two separate Deployments:
    1. Frontend: `todo-app-frontend`
    2. Backend: `todo-app-backend`
 3. Make sure each Deployment uses unique labels.  
    For example, adjust the label `app.kubernetes.io/component` so that it correctly identifies either frontend or backend.
-4. Create the new Deployments: `kubectl create -f todo-app-deployment.yaml`
+4. Create the new Deployments:  
+   ```bash
+   kubectl create -f todo-app-deployment.yaml
+   ```
 5. Verify that both Deployments are running successfully:  
-   1. `kubectl get deployments`
-   2. `kubectl get pods`  
-
+   ```bash
+   kubectl get deployments
+   ```  
+   ```bash
+   kubectl get pods
+   ```
    You should now see two Deployments, each with one Pod.
 
 ### Step 3
@@ -49,24 +65,43 @@ After splitting the frontend and backend into separate Deployments, you can scal
 
 Now scale the backend from 1 Pod to 3 Pods.
 
-1. In the file `todo-app-deployment.yaml`, update the `spec.replicas` value of the `todo-app-backend` Deployment to 3.
-2. Apply the updated configuration: `kubectl apply -f todo-app-deployment.yaml`
-3. Verify that three backend Pods are running: `kubectl get pods`  
-   You should see three Pods with names starting with: `todo-app-backend-`
+1. In the file `todo-app-deployment.yaml`, update the `spec.replicas` value of the `todo-app-backend` Deployment to `3`.
+2. Apply the updated configuration:  
+   ```bash
+   kubectl apply -f todo-app-deployment.yaml
+   ```
+3. Verify that three backend Pods are running:  
+   ```bash
+   kubectl get pods
+   ```  
+   You should see three Pods with names starting with: `todo-app-backend-<xxxx>`
 4. There are also other ways to scale a Deployment without editing the YAML file directly.  
    These changes are applied directly in the cluster and may be overwritten later by the manifest.  
-   Scale the Deployment to 4 replicas using one of the following commands:  
-   `kubectl scale deployment todo-app-backend --replicas=4`  
+   Scale the Deployment to `4` replicas using one of the following commands:  
+   ```bash
+   kubectl scale deployment todo-app-backend --replicas=4
+   ```  
    or  
-   `kubectl edit deployment todo-app-backend`  
-   Then update the replicas field to 4 in the editor.
+   ```bash
+   kubectl edit deployment todo-app-backend
+   ```  
+   Then update the replicas field to `4` in the editor.
 
 1. Update in the `todo-app-deployment.yaml` file in your `todo-app-backend` Deployment the key `spec.replicas` to `3`
-2. Apply the change to the Kubernetes Cluster with the command `kubectl apply -f todo-app-deployment.yaml`
+2. Apply the change to the Kubernetes Cluster with the command  
+   ```bash
+   kubectl apply -f todo-app-deployment.yaml
+   ```
 3. Verify, if you have 3 pods starting with the name `todo-app-backend-<xxxx>`. 
-4. There is also another way to scale the deployment. Let's figure it out. Instead of editing the `todo-app-deployment.yaml` file, you can scale the deployment directly in the kubernetes cluster (Note: This is just a temporary change)
-   1. `kubectl scale deployment todo-app-backend --replicas=4` or
-   2. `kubectl edit deployment todo-app-backend` and increase in the editor the `replicas` count to 4
+4. There is also another way to scale the deployment. Let's figure it out. Instead of editing the `todo-app-deployment.yaml` file, you can scale the deployment directly in the kubernetes cluster (Note: This is just a temporary change)  
+   ```bash
+   kubectl scale deployment todo-app-backend --replicas=4
+   ```  
+   or  
+   ```bash
+   kubectl edit deployment todo-app-backend
+   ```  
+   and increase in the editor the `replicas` count to `4`
 
 #### Hint
 
