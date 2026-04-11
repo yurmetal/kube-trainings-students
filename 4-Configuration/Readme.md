@@ -38,44 +38,73 @@ containers:
         value: "on"
 ```
 
-#### Step 2: Customize your basic-auth credentials
+### Step 2
+Customize the basic authentication credentials.  
+In the previous step, you used the default credentials.  
+Now create your own credentials by storing them in a Kubernetes Secret and referencing that Secret from the Deployment.
 
-In the first step, we used the default credentials. Now customize your basic-auth credentials. Use for this a `Secret` Ressource and reference the secret to the environment variables
+1. Edit the file `todo-app-deployment.yaml`.
+2. Add a `Secret` resource with the name `todo-app-basic-auth`.
+3. In the data section of the Secret, add the following base64-encoded values:  
+    - Username: `admin`
+    - Password: `password123`
+4. Apply the changes:  
+    ```bash
+    kubectl apply -f todo-app-deployment.yaml
+    ```
+5. Verify that the Secret was created successfully:  
+    ```bash
+    kubectl get secrets
+    ```
+6. In the `todo-app-frontend` Deployment, add the following environment variables to the frontend container:  
+    - TODO_APP_AUTH_USERNAME
+    - TODO_APP_AUTH_PASSWORD  
 
-1. Adjust the file `todo-app-deployment.yaml` and add a `Secret` Ressource with the name `todo-app-basic-auth`
-1. Add the following information to the `data` section. Take care, to add the values as base64 encoded
-   1. Key: `username` Value: `admin`
-   1. Key: `password` Value: `password123`
-1. Apply the secret to the kubernetes cluster with the command `kubectl apply -f todo-app-deployment.yaml`
-1. Verify if the secret has been created successfully with the command `kubectl get secrets`
-1. Now add two environment variables `TODO_APP_AUTH_USERNAME` and `TODO_APP_AUTH_PASSWORD` reference the values from the `todo-app-basic-auth` secret (see example)
-1. After that, apply the change `kubectl apply -f todo-app-deployment.yaml`
-1. Verify if the `todo-app-frontend` pod has been restarted
-2. Open the todo-app in your browser and see, if you're able to authentificate with your defined credentials.
+    Both values must be loaded from the `todo-app-basic-auth` Secret.
+7. Apply the updated Deployment:  
+    ```bash
+    kubectl apply -f todo-app-deployment.yaml
+    ```
+8. Verify that the frontend Pod has restarted:  
+    ```bash
+    kubectl get pods
+    ```
+9. Open the todo app in your browser and verify that you can log in with your custom credentials.
 
-**Secret example**
-```
+**Example: Secret**
+```yaml
 apiVersion: v1
 kind: Secret
 metadata:
-  name: <SECRET_NAME>
+  name: todo-app-basic-auth
 data:
   username: YWRtaW4=
-  password: c2VjcmV0
+  password: cGFzc3dvcmQxMjM=
 ```
 
-**Environment Secret Reference**
+**Example: Secret Reference in Environment Variables**
 ```yaml
-       env:
-       - name: CUSTOM_USERNAME
-         valueFrom:
-           secretKeyRef:
-             name: <SECRET_NAME>
-             key: <KEY_IN_SECRET_UNDER_DATA>
+env:
+  - name: TODO_APP_AUTH_USERNAME
+    valueFrom:
+      secretKeyRef:
+        name: todo-app-basic-auth
+        key: username
+  - name: TODO_APP_AUTH_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: todo-app-basic-auth
+        key: password
 ```
-
 
 ## Tips
+
+**Useful Commands**
+```bash
+kubectl get pods ;
+kubectl get secrets ;
+kubectl describe secret todo-app-basic-auth
+```
 
 ### Secrets
 
