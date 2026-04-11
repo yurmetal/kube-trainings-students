@@ -45,9 +45,7 @@ Access the frontend container and test the backend endpoint /api/info on port 80
 
 ### Step 3
 
-We don't need this pod anymore. Delete your pod with the command `kubectl delete -f todo-app-pod.yaml` to prepare for the next task
-
-
+You no longer need this Pod. Delete it to prepare for the next exercise: `kubectl delete -f todo-app-pod.yaml`
 
 ## Links
 
