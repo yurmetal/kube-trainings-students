@@ -1,12 +1,28 @@
-# Statefulset
+# StatefulSet
 
-## Tasks
+## Exercise
 
-Until now, we created for every pod a persistent volume claim by hand. Now we want to define a template, how a pvc should look and let them create automaticaly by the statefulset.
+In the previous task, you created a PersistentVolumeClaim (PVC) manually for the PostgreSQL database.  
+In this exercise, you will use a StatefulSet with a `volumeClaimTemplates` section so that Kubernetes can create PVCs automatically for each Pod.
 
-### Exercise
+### Step 1
+Clean up the resources from the previous task. 
 
-#### Step 1: Clean up the previous task
+1. Delete the PostgreSQL Deployment from the previous task:  
+    ```bash
+    kubectl delete -f todo-app-postgres-database-deployment.yaml
+    ```
+2. Delete the manually created PVC:  
+    ```bash
+    kubectl delete -f todo-app-postgres-database-pvc.yaml
+    ```
+3. Verify that both resources were deleted successfully:  
+    ```bash
+    kubectl get pvc
+    ```  
+    ```bash
+    kubectl get pods
+    ```
 
 1. Delete the Deployment `todo-app-postgres-database` from the previous task (5-Persistence) with the command `kubectl delete -f todo-app-postgres-database-deployment.yaml`
 1. Delete the your created PVC with the command `kubectl delete -f todo-app-postgres-database-pvc.yaml`
