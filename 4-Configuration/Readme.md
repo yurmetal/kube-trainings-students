@@ -1,30 +1,41 @@
 # Configuration
 
-## Tasks
+## Exercise
 
-We will continue with the previous task. The services for backend, frontend and also the ingress should be deployed on the kubernetes cluster.
+In this exercise, you will continue working with the application from the previous task.  
+The backend Service, frontend Service, and IngressRoute should already be deployed in the Kubernetes cluster.
 
-### Exercises
+### Step 1
+Enable the basic auth security in your todo-app (Frontend)  
+The frontend application supports built-in basic authentication, which can be enabled through environment variables.
 
-#### Step 1: Enable the basic auth security in your todo-app (Frontend)
+1. Edit the file `todo-app-deployment.yaml`.
+2. In the `todo-app-frontend` Deployment, add the following environment variables to the `frontend` container:  
+    - `TODO_APP_AUTH=on`
+    - `TODO_APP_SECURITY_ENABLED=on`
+3. Apply the changes to the cluster:  
+    ```bash
+    kubectl apply -f todo-app-deployment.yaml
+    ```
+4. Verify that the frontend Pod has been restarted:  
+    ```bash
+    kubectl get pods
+    ```
+5. Open the todo app in your browser and check whether a basic authentication prompt appears.
+6. Log in using the default credentials:  
+    - Username: `admin`
+    - Password: `admin`
 
-The frontend has an in-built basic-auth, which can be activated with a environment variable.
-
-1. Adjust the file `todo-app-deployment.yaml` and add to your `todo-app-frontend` deployment and frontend container the environment variables with the keys `TODO_APP_AUTH` and `TODO_APP_SECURITY_ENABLED` and value `on`
-2. Apply the change to your `todo-app-frontend` deployment with the command `kubectl apply -f todo-app-deployment.yaml`
-3. Verify if the `todo-app-frontend` pods has been restarted
-4. Open the todo-app in your browser and see, if you're getting a basic-auth request. The default basic-auth credentials are: `username`: `admin` and `password`: `admin`
-
-**Environment example**
-```
-...
-      containers:
-      - name: postgres-db
-        image: postgres:11.2
-        env:
-        - name: "TODO_APP_TITLE"
-          value: "This is my environment value :)"
-...
+**Example: Environment Variables**
+```yaml
+containers:
+  - name: frontend
+    image: your-image
+    env:
+      - name: TODO_APP_AUTH
+        value: "on"
+      - name: TODO_APP_SECURITY_ENABLED
+        value: "on"
 ```
 
 #### Step 2: Customize your basic-auth credentials
