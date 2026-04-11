@@ -29,20 +29,19 @@ Make sure you are working in the correct namespace:
 >
 > [Dockerhub Registry - Frontend](https://hub.docker.com/repository/docker/ikirakosyan/demo_frontend/tags)
 
-### Step 2
-Gain access to your `frontend` container and check out the `/api/info` endpoint of our backend on Port `8080`
+### Step 2 - Access the frontend container and test the backend endpoint /api/info on port 8080.
+Access the frontend container and test the backend endpoint /api/info on port 8080.
 
-1. You can use the kubectl exec command to get run a specific command inside a container.
-   To switch into the shell of the container, run the command `kubectl exec -it PODName -c frontend -- /bin/sh` 
-   **Hint:** Replace PODName with your Pod Name from your todo-app
-2. If you have multiple containers running inside your pod, you have to use the option `-c ContainerName` to execute into a specific container.
-   Otherwise, the default container will be selected.
-3. Run `curl localhost:8080/api/info` or `curl todo-app:8080/api/info` in the executed container, to test if the backend is accessible.
-4. If you can see `We <3 Kubernetes` response, then you have successfully checked the interface of backend
+1. Open a shell inside the frontend container: `kubectl exec -it POD_NAME -c frontend -- /bin/sh`  
+    Replace **POD_NAME** with the name of your Pod.
+2. If a Pod contains multiple containers, you must specify the target container with -c **CONTAINER_NAME**.  
+    Otherwise, Kubernetes will use the default container.
+3. Inside the container, test whether the backend is reachable: `curl localhost:8080/api/info`
+4. If the response contains: `We <3 Kubernetes` then the backend is reachable.
 
 #### Hint
 
-> You can use the command `curl HOST:PORT/PATH` to verify if a service like webservice etc. is accessible.
+> You can use the following pattern to test whether an application endpoint is accessible: `curl HOST:PORT/PATH`
 
 ### Step 3
 
