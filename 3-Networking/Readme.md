@@ -11,15 +11,15 @@ Before creating Services and an Ingress, the frontend and backend applications m
 1. If you successfully completed **Task 2 - Deployment**, you can continue directly.
 2. Otherwise, deploy the provided solution from Task 2:  
     ```bash
-    kubectl create -f solution/solution-todo-app-deployment.yaml
+    kubectl create -f ../2-Deployment/todo-app-deployment.yaml
     ```
 3. Verify that both Deployments and Pods are running:  
-    1. ```bash
-       kubectl get deployments
-       ``` 
-    2. ```bash 
-       kubectl get pods
-       ```
+    ```bash
+    kubectl get deployments
+    ```  
+    ```bash 
+    kubectl get pods
+    ```
 
 ### Backend Service
 
@@ -30,12 +30,24 @@ A Service definition for the backend is already provided.
     ```bash
     kubectl create -f todo-app-backend-service.yaml
     ```
-
-1. Run the command `kubectl create -f todo-app-backend-service.yaml` to create a service for the backend
-1. Verify with the command `kubectl get service` if your service `todo-app-backend` is created
-1. To test your `todo-app-backend` service. We need an environment where we can run the `curl` command. 
-   1. So let's execute into the `todo-app-frontend` pod with the comment `kubectl exec -it <TODO_APP_FRONTEND_POD> /bin/sh`. Replace `<TODO_APP_FRONTEND_POD>` with the `todo-app-frontend` pod
-   1. Run `curl http://todo-app-backend:80/api/info` and see if you can see the api response `We <3 Kubernetes`
+2. Verify that the Service todo-app-backend was created successfully:
+    ```bash
+    kubectl get services
+    ```
+3. Test whether the backend Service is reachable.  
+   First, open a shell in one of the todo-app-frontend Pods:  
+   ```bash
+   kubectl get pods
+   ```
+   ```bash
+   kubectl exec -it <TODO_APP_FRONTEND_POD> -- /bin/sh
+   ```  
+   Replace `<TODO_APP_FRONTEND_POD>` with the name of your frontend Pod.
+4. Inside the container, test the backend endpoint:  
+    ```bash
+    curl http://todo-app-backend:80/api/info
+    ```
+5. If the response contains the following text, the backend Service is working correctly: `We <3 Kubernetes`
 
 ### Frontend Service
 
