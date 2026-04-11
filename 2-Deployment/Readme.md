@@ -83,7 +83,13 @@ You can keep both Deployments in the same file and separate them with `---`.
       ```
 
 3. Make sure each Deployment uses unique labels.  
-   For example, adjust the label `app.kubernetes.io/component` so that it correctly identifies either frontend or backend.
+
+   - Adjust the label `app.kubernetes.io/component` so that it clearly identifies the application part:
+      - `app.kubernetes.io/component: frontend`
+      - `app.kubernetes.io/component: backend`  
+
+   - Keep the label `app.kubernetes.io/name` the same for both Deployments:
+      - `app.kubernetes.io/name: todo-app`
 4. Create the new Deployments:  
    ```bash
    kubectl create -f todo-app-deployment.yaml
