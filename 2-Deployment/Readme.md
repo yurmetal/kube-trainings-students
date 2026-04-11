@@ -77,15 +77,15 @@ Now scale the backend from 1 Pod to 3 Pods.
    You should see three Pods with names starting with: `todo-app-backend-<xxxx>`
 4. There are also other ways to scale a Deployment without editing the YAML file directly.  
    These changes are applied directly in the cluster and may be overwritten later by the manifest.  
-   Scale the Deployment to `4` replicas using one of the following commands:  
+   Scale the Deployment to `3` replicas using one of the following commands:  
    ```bash
-   kubectl scale deployment todo-app-backend --replicas=4
+   kubectl scale deployment todo-app-backend --replicas=3
    ```  
    or  
    ```bash
    kubectl edit deployment todo-app-backend
    ```  
-   Then update the `replicas` field to `4` in the editor.
+   Then update the `replicas` field to `3` in the editor.
 
 1. Update in the `todo-app-deployment.yaml` file in your `todo-app-backend` Deployment the key `spec.replicas` to `3`
 2. Apply the change to the Kubernetes Cluster with the command  
@@ -95,13 +95,13 @@ Now scale the backend from 1 Pod to 3 Pods.
 3. Verify, if you have 3 pods starting with the name `todo-app-backend-<xxxx>`. 
 4. There is also another way to scale the deployment. Let's figure it out. Instead of editing the `todo-app-deployment.yaml` file, you can scale the deployment directly in the kubernetes cluster (Note: This is just a temporary change)  
    ```bash
-   kubectl scale deployment todo-app-backend --replicas=4
+   kubectl scale deployment todo-app-backend --replicas=3
    ```  
    or  
    ```bash
    kubectl edit deployment todo-app-backend
    ```  
-   and increase in the editor the `replicas` count to `4`
+   and increase in the editor the `replicas` count to `3`
 
 #### Hint
 
