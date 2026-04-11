@@ -9,10 +9,17 @@ In this exercise, you will gradually increase the visibility of the todo app unt
 Before creating Services and an Ingress, the frontend and backend applications must already be running in the Kubernetes cluster.
 
 1. If you successfully completed **Task 2 - Deployment**, you can continue directly.
-2. Otherwise, deploy the provided solution from Task 2: `kubectl create -f solution/solution-todo-app-deployment.yaml`
+2. Otherwise, deploy the provided solution from Task 2:  
+    ```bash
+    kubectl create -f solution/solution-todo-app-deployment.yaml
+    ```
 3. Verify that both Deployments and Pods are running:  
-    1. `kubectl get deployments`
-    2. `kubectl get pods`
+    1. ```bash
+       kubectl get deployments
+       ``` 
+    2. ```bash 
+       kubectl get pods
+       ```
 
 ### Backend Service
 
