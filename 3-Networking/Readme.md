@@ -35,7 +35,7 @@ A Service definition for the backend is already provided.
     kubectl get services
     ```
 3. Test whether the backend Service is reachable.  
-   First, open a shell in one of the todo-app-frontend Pods:  
+    First, open a shell in one of the todo-app-frontend Pods:  
    ```bash
    kubectl get pods
    ```
@@ -51,15 +51,35 @@ A Service definition for the backend is already provided.
 
 ### Frontend Service
 
-Now we need to create a service for our `todo-app-frontend` pods. There is already a file `todo-app-frontend-service.yaml` which contains a template but it's not finished yet. Follow the steps to create your `todo-app-frontend` service
+Now create a Service for the todo-app-frontend Pods.  
+The file `todo-app-frontend-service.yaml` already exists, but it is not complete yet.
 
-1. Edit the file `todo-app-frontend-service.yaml`
-   1. Adjust the labels under `spec.selector` according to your frontend pods
-   1. Adjust the targetPort according to your frontend pod port
-1. Deploy your `todo-app-frontend` service with the command `kubectl create -f todo-app-frontend-service.yaml`
-1. Verify if your `todo-app-frontend` service is created successfully and check if the pods behind it are accessible
-    1. So let's execute into the `todo-app-backend` pod with the comment `kubectl exec -it <TODO_APP_BACKEND_POD> /bin/sh`. Replace `<TODO_APP_BACKEND_POD>` with the `todo-app-backend` pod
-   1. Run `curl http://todo-app-frontend:80/` and check if you can see the HTML response. If yes, then everything is okay. If not, verify your `todo-app-frontend` service and fix it
+1. Edit the file `todo-app-frontend-service.yaml`.
+2. Adjust the following fields:  
+    - spec.selector so that it matches the labels of your frontend Pods
+    - spec.ports[].targetPort so that it matches the port exposed by the frontend container
+3. Create the frontend Service:  
+    ```bash
+    kubectl create -f todo-app-frontend-service.yaml
+    ```
+4. Verify that the Service was created successfully:  
+    ```bash
+    kubectl get services
+    ```
+5. Test whether the frontend Service is reachable.  
+   First, open a shell in one of the todo-app-backend Pods:  
+    ```bash
+    kubectl get pods
+    ```  
+    ```bash
+    kubectl exec -it <TODO_APP_BACKEND_POD> -- /bin/sh
+    ```
+6. Inside the container, test the frontend Service:
+    ```bash
+    curl http://todo-app-frontend:80/
+    ```
+7. If you receive an HTML response, the frontend Service is working correctly.  
+    If not, inspect the Service definition and fix the issue.
 
 #### Ingress
 
