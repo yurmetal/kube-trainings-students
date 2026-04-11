@@ -55,14 +55,33 @@ Split the todo-app Deployment in your `todo-app-deployment.yaml` file into two s
    - `todo-app-frontend`
    - `todo-app-backend`
 
-You can keep both Deployments in the same file and separate them with `---`.
+You can keep both Deployments in the same file and separate them with `---`.  
+
 1. Delete the existing todo-app Deployment:  
    ```bash
    kubectl delete -f todo-app-deployment.yaml
    ```
 2. Split the todo-app Deployment into two separate Deployments:
    - Frontend: `todo-app-frontend`
-   - Backend: `todo-app-backend`
+   - Backend: `todo-app-backend`  
+
+   **Example:**
+      ```yaml
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+      name: todo-app-frontend
+      spec:
+
+      ---
+
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+      name: todo-app-backend
+      spec:
+      ```
+
 3. Make sure each Deployment uses unique labels.  
    For example, adjust the label `app.kubernetes.io/component` so that it correctly identifies either frontend or backend.
 4. Create the new Deployments:  
