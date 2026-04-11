@@ -30,12 +30,22 @@ A Service definition for the backend is already provided.
     ```bash
     kubectl create -f todo-app-backend-service.yaml
     ```
-2. Verify that the Service todo-app-backend was created successfully:
+2. Verify that the Service `todo-app-backend` was created successfully:
     ```bash
     kubectl get services
     ```
+3. Verify that the `todo-app-backend` Service is correctly linked to the backend Pod.  
+    ```bash
+    kubectl describe svc todo-app-backend
+    ```  
+    Look for the Endpoints section in the output, for example:
+    ```text
+    Endpoints: 10.X.X.X:8080
+    ```  
+    This indicates that the Service is correctly connected to the backend Pod.
+
 3. Test whether the backend Service is reachable.  
-    First, open a shell in one of the todo-app-frontend Pods:  
+    First, open a shell in one of the `todo-app-frontend` Pods:  
    ```bash
    kubectl get pods
    ```
@@ -51,7 +61,7 @@ A Service definition for the backend is already provided.
 
 ### Frontend Service
 
-Now create a Service for the todo-app-frontend Pods.  
+Now create a Service for the `todo-app-frontend` Pods.  
 The file `todo-app-frontend-service.yaml` already exists, but it is not complete yet.
 
 1. Edit the file `todo-app-frontend-service.yaml`.
@@ -67,7 +77,7 @@ The file `todo-app-frontend-service.yaml` already exists, but it is not complete
     kubectl get services
     ```
 5. Test whether the frontend Service is reachable.  
-   First, open a shell in one of the todo-app-backend Pods:  
+   First, open a shell in one of the `todo-app-backend` Pods:  
     ```bash
     kubectl get pods
     ```  
