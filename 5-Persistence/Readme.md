@@ -157,7 +157,25 @@ Now update the PostgreSQL Deployment so that it uses the PVC as persistent stora
     kubectl get pods
     ```
 
-5. If the Pod is not running, inspect the issue and fix it.  
+5. Verify that the PVC is used by the database: 
+
+    ```bash
+    kubectl describe pvc <PVC_NAME>
+    ```  
+
+    Look for the `Used By` field in the output, for example:  
+
+    ```text
+    Used By:  todo-app-postgres-database-xxxxxxxxx-xxxxx
+    ```  
+
+    This indicates that the PVC is successfully mounted by the database Pod.  
+
+6. Restart the `todo-app-backend` `Deployment` to avoid possible issues after the database redeployment:  
+
+    ```bash
+    kubectl rollout restart deployment <TODO_APP_BACKEND_DEPLOYMENT_NAME>
+    ```
 
 **Example: Volume Mount**
 ```yaml
