@@ -117,6 +117,16 @@ env:
         key: password
 ```
 
+#### Hint
+
+> Values in the `data` section of a Secret must be base64 encoded.  
+> You can encode and decode values using the following commands:  
+>
+> ```bash
+> echo -n "password123"   | base64        # encode
+> echo "cGFzc3dvcmQxMjM=" | base64 -d     # decode
+> ```
+
 ## Tips
 
 **Useful Commands**
