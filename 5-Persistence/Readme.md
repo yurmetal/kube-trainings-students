@@ -21,7 +21,7 @@ Let's first verify whether the todo data is still available after restarting the
    kubectl rollout restart deployment <TODO_APP_BACKEND_DEPLOYMENT>
    ```  
 
-    Replace <TODO_APP_BACKEND_DEPLOYMENT> with the name of a backend Deployment.  
+    Replace `<TODO_APP_BACKEND_DEPLOYMENT>` with the name of a backend `Deployment`.  
 
 3. Refresh the todo app in your browser.
 4. Check whether your todos are still visible.  
@@ -86,6 +86,7 @@ Verify whether the todos are stored in the database
 3. Refresh the todo app and check whether the todos are still visible.  
 
     > At this point, the todos should still be available because they are now stored in the database.
+
 4. Restart the PostgreSQL Pod:  
 
     ```bash
@@ -106,7 +107,7 @@ To make it persistent, create a PersistentVolumeClaim (PVC) and later mount it i
 1. Create a file named `todo-app-postgres-database-pvc.yaml`.
 2. Define a `PersistentVolumeClaim` based on the example below.
 3. Use a unique name for your PVC.  
-4. Request a storage size of 1Gi.  
+4. Request a storage size of `1Gi`.  
 5. Deploy the PVC:  
 
     ```bash
@@ -224,7 +225,7 @@ Now try to scale the PostgreSQL Deployment and observe what happens.
 
 ## Links
 
-[Kubernetes Documentation](https://kubernetes.io/docs/concepts/storage/volumes/)
+[Volumes Documentation](https://kubernetes.io/docs/concepts/storage/volumes/)
 
 [Kubernetes YAML Persistent Volume Claim (PVC) Documentation](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#persistentvolumeclaim-v1-core)
 
