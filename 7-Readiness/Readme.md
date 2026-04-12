@@ -37,38 +37,38 @@ Add readiness and liveness probes to the frontend using TCP.
   kubectl apply -f task-deployment.yaml
   ```  
 
-4. Edit the frontend Deployment and add a `readinessProbe` using `tcpSocket`.
-5. Add a `livenessProbe` using `tcpSocket`.
-6. Test what happens if you configure the wrong port for the `readinessProbe`.
-7. Test what happens if you configure the wrong port for the `livenessProbe`.  
+4. Edit the frontend Deployment and add a `readinessProbe` and `livenessProbe` using `tcpSocket`.
+
+    **Example: TCP Probe**
+    ```yaml
+    spec:
+      template:
+        spec:
+          containers:
+            - name: frontend
+              image: ...
+              ports:
+                - containerPort: 9080
+              readinessProbe:
+                tcpSocket:
+                  port: 9080
+                initialDelaySeconds: 5
+                periodSeconds: 5
+              livenessProbe:
+                tcpSocket:
+                  port: 9080
+                initialDelaySeconds: 10
+                periodSeconds: 10
+    ```
+
+5. Test what happens if you configure the wrong port for the `readinessProbe`.
+6. Test what happens if you configure the wrong port for the `livenessProbe`.  
     To observe the effect faster, temporarily reduce values such as:  
       
       - `initialDelaySeconds`
       - `periodSeconds`
 
-8. Restore the correct port values and verify that the frontend Pod becomes both `Ready` and `Running`.
-
-**Example: TCP Probe**
-```yaml
-spec:
-  template:
-    spec:
-      containers:
-        - name: frontend
-          image: ...
-          ports:
-            - containerPort: 9080
-          readinessProbe:
-            tcpSocket:
-              port: 9080
-            initialDelaySeconds: 5
-            periodSeconds: 5
-          livenessProbe:
-            tcpSocket:
-              port: 9080
-            initialDelaySeconds: 10
-            periodSeconds: 10
-```
+7. Restore the correct port values and verify that the frontend Pod becomes both `Ready` and `Running`.
 
 ### Step 2
 Add readiness and liveness probes to the backend using HTTP. 
