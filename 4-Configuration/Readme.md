@@ -127,16 +127,6 @@ env:
         key: password
 ```
 
-## Tips
-
-**Useful Commands**
-
-```bash
-kubectl get pods ;
-kubectl get secrets ;
-kubectl describe secret todo-app-basic-auth
-```
-
 ## Links
 
 [Secret Documentation](https://kubernetes.io/docs/concepts/configuration/secret/)
