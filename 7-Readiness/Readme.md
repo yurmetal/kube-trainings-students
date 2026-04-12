@@ -11,7 +11,7 @@ Each container will use a different probe type:
 ## Step 1
 Add readiness and liveness probes to the frontend using TCP. 
 
-1. Delete old `frontend` and `backend` deployments:  
+1. Delete the existing `frontend` and `backend` Deployments:  
 
   ```bash
   kubectl delete deployment <TODO_APP_FRONTEND_DEPLOYMENT_NAME>
@@ -21,30 +21,53 @@ Add readiness and liveness probes to the frontend using TCP.
   kubectl delete deployment <TODO_APP_BACKEND_DEPLOYMENT_NAME>
   ```
 
-1. Edit the frontend Deployment and add a `readinessProbe` using `tcpSocket`.
-2. Add a `livenessProbe` using `tcpSocket`.
-3. Test what happens if you configure the wrong port for the `readinessProbe`.
-4. Test what happens if you configure the wrong port for the `livenessProbe`.  
+2. Delete the existing PersistentVolumeClaims (PVCs):   
+
+  ```bash
+  kubectl delete pvc <PVC_NAME>
+  ```  
+
+3. Deploy the updated resources:  
+
+  ```bash
+  kubectl apply -f task-database.yaml
+  ```  
+
+  ```bash
+  kubectl apply -f task-deployment.yaml
+  ```  
+
+4. Edit the frontend Deployment and add a `readinessProbe` using `tcpSocket`.
+5. Add a `livenessProbe` using `tcpSocket`.
+6. Test what happens if you configure the wrong port for the `readinessProbe`.
+7. Test what happens if you configure the wrong port for the `livenessProbe`.  
     To observe the effect faster, temporarily reduce values such as:  
       
       - `initialDelaySeconds`
       - `periodSeconds`
 
-5. Restore the correct port values and verify that the frontend Pod becomes both `Ready` and `Running`.
+8. Restore the correct port values and verify that the frontend Pod becomes both `Ready` and `Running`.
 
 **Example: TCP Probe**
 ```yaml
-readinessProbe:
-  tcpSocket:
-    port: 9080
-  initialDelaySeconds: 5
-  periodSeconds: 5
-
-livenessProbe:
-  tcpSocket:
-    port: 9080
-  initialDelaySeconds: 10
-  periodSeconds: 10
+spec:
+  template:
+    spec:
+      containers:
+        - name: frontend
+          image: ...
+          ports:
+            - containerPort: 9080
+          readinessProbe:
+            tcpSocket:
+              port: 9080
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          livenessProbe:
+            tcpSocket:
+              port: 9080
+            initialDelaySeconds: 10
+            periodSeconds: 10
 ```
 
 ### Step 2
