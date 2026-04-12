@@ -51,10 +51,10 @@ livenessProbe:
 Add readiness and liveness probes to the backend using HTTP. 
 The backend provides the following API endpoints:  
 
-  - GET /api/task - list tasks
-  - DELETE /api/task/{taskId} - delete a task
-  - POST /api/task - create a new task
-  - GET /api/info - returns `We <3 Kubernetes`
+  - `GET /api/task` - list tasks
+  - `DELETE /api/task/{taskId}` - delete a task
+  - `POST /api/task` - create a new task
+  - `GET /api/info` - returns **We <3 Kubernetes**
 
 1. Add a readinessProbe to the backend using HTTP.
 2. Add a livenessProbe to the backend using HTTP.
