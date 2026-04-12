@@ -131,20 +131,6 @@ To make the frontend accessible from outside the cluster, create an IngressRoute
 > Make sure the URL ends with /.  
 > Otherwise, the page may not load correctly.
 
-### Question: What happens, if you restart the backend?
-
-1. Delete one of the backend Pods:  
-
-    ```bash
-    kubectl get pods
-    ```
-    ```bash
-    kubectl delete pod <TODO_APP_BACKEND_POD>
-    ```  
-    Replace `<TODO_APP_BACKEND_POD>` with the name of one of your backend Pods.
-2. Refresh the todo app in the browser.
-3. Observe what happens.
-
 ## Tips
 
 ### Commands
