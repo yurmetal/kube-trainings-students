@@ -11,13 +11,13 @@ Clean up the resources from the previous task.
 1. Delete the PostgreSQL Deployment from the previous task:  
     
     ```bash
-    kubectl delete -f todo-app-postgres-database-deployment.yaml
+    kubectl delete -f ../5-Persistence/todo-app-postgres-database-deployment.yaml
     ```
 
 2. Delete the manually created PVC:  
 
     ```bash
-    kubectl delete -f todo-app-postgres-database-pvc.yaml
+    kubectl delete -f ../5-Persistence/todo-app-postgres-database-pvc.yaml
     ```
 
 3. Verify that both resources were deleted successfully:  
