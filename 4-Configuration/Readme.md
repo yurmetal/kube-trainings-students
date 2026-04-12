@@ -57,6 +57,16 @@ Now create your own credentials by storing them in a Kubernetes Secret and refer
     - Username: `admin`
     - Password: `password123`
 
+    #### Hint
+
+    > Values in the `data` section of a Secret must be base64 encoded.  
+    > You can encode and decode values using the following commands:  
+    >
+    > ```bash
+    > echo -n "password123"   | base64        # encode
+    > echo "cGFzc3dvcmQxMjM=" | base64 -d     # decode
+    > ```
+
 4. Apply the changes:  
 
     ```bash
@@ -116,16 +126,6 @@ env:
         name: todo-app-basic-auth
         key: password
 ```
-
-#### Hint
-
-> Values in the `data` section of a Secret must be base64 encoded.  
-> You can encode and decode values using the following commands:  
->
-> ```bash
-> echo -n "password123"   | base64        # encode
-> echo "cGFzc3dvcmQxMjM=" | base64 -d     # decode
-> ```
 
 ## Tips
 
