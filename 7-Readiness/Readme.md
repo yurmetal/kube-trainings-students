@@ -121,41 +121,6 @@ The backend provides the following API endpoints:
     We <3 Kubernetes
     ```
 
-### Step 3
-Add readiness and liveness probes to PostgreSQL using commands.  
-Now add readiness and liveness probes to the PostgreSQL container by executing a command inside the container.  
-The following command can be used to check whether PostgreSQL is ready:  
-
-```bash
-pg_isready -d <DB_NAME> -h <HOST_NAME> -p <PORT_NUMBER> -U <DB_USER>
-```
-
-1. Add a readinessProbe to the PostgreSQL container using exec.  
-2. Add a livenessProbe to the PostgreSQL container using exec.
-3. Use the correct database name, host, port, and user in the command.
-4. Apply the changes and verify that the PostgreSQL Pod becomes Ready and Running.
-
-**Example: Command Probe**
-```yaml
-readinessProbe:
-  exec:
-    command:
-      - sh
-      - -c
-      - pg_isready -d kubernetestraining -h localhost -p 5432 -U postgres
-  initialDelaySeconds: 5
-  periodSeconds: 5
-
-livenessProbe:
-  exec:
-    command:
-      - sh
-      - -c
-      - pg_isready -d kubernetestraining -h localhost -p 5432 -U postgres
-  initialDelaySeconds: 10
-  periodSeconds: 10
-```
-
 ## Links
 
 [Configure Liveness, Readiness and Startup Probes](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)  
