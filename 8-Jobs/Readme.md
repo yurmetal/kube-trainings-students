@@ -12,10 +12,17 @@ You will use the file `cronjob.yaml` and the `busybox` image.
 1. Edit the CronJob definition and configure the container to run the following command:  
     
     ```yaml
-    command:
-      - /bin/sh
-      - -c
-      - date; echo Hello from Kubernetes cluster
+    template:
+      spec:
+        containers:
+          - name: exxeta-cronjob
+            image: busybox:1.28
+            imagePullPolicy: IfNotPresent
+            command:
+              - /bin/sh
+              - -c
+              - date; echo Hello from Kubernetes cluster
+        restartPolicy: OnFailure
     ```
 
 2. Create the CronJob:  
