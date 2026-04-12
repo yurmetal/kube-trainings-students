@@ -11,13 +11,25 @@ Each container will use a different probe type:
 ## Step 1
 Add readiness and liveness probes to the frontend using TCP. 
 
+1. Delete old `frontend` and `backend` deployments:  
+
+  ```bash
+  kubectl delete deployment <TODO_APP_FRONTEND_DEPLOYMENT_NAME>
+  ```  
+
+  ```bash
+  kubectl delete deployment <TODO_APP_BACKEND_DEPLOYMENT_NAME>
+  ```
+
 1. Edit the frontend Deployment and add a `readinessProbe` using `tcpSocket`.
 2. Add a `livenessProbe` using `tcpSocket`.
 3. Test what happens if you configure the wrong port for the `readinessProbe`.
 4. Test what happens if you configure the wrong port for the `livenessProbe`.  
     To observe the effect faster, temporarily reduce values such as:  
-    - `initialDelaySeconds`
-    - `periodSeconds`
+      
+      - `initialDelaySeconds`
+      - `periodSeconds`
+
 5. Restore the correct port values and verify that the frontend Pod becomes both `Ready` and `Running`.
 
 **Example: TCP Probe**
@@ -38,10 +50,11 @@ livenessProbe:
 ### Step 2
 Add readiness and liveness probes to the backend using HTTP. 
 The backend provides the following API endpoints:  
-- GET /api/task - list tasks
-- DELETE /api/task/{taskId} - delete a task
-- POST /api/task - create a new task
-- GET /api/info - returns `We <3 Kubernetes`
+
+  - GET /api/task - list tasks
+  - DELETE /api/task/{taskId} - delete a task
+  - POST /api/task - create a new task
+  - GET /api/info - returns `We <3 Kubernetes`
 
 1. Add a readinessProbe to the backend using HTTP.
 2. Add a livenessProbe to the backend using HTTP.
@@ -49,6 +62,7 @@ The backend provides the following API endpoints:
 4. Apply the changes and verify that the backend Pod becomes Ready and Running.
 5. Then delete the PostgreSQL StatefulSet Pod and observe what happens to the backend Pod and the application.
 6. Think about the following questions:  
+
     - Why is PostgreSQL running as a StatefulSet?
     - What happens to the data when the PostgreSQL Pod is restarted?
 
@@ -73,6 +87,7 @@ livenessProbe:
 Add readiness and liveness probes to PostgreSQL using commands.  
 Now add readiness and liveness probes to the PostgreSQL container by executing a command inside the container.  
 The following command can be used to check whether PostgreSQL is ready:  
+
 ```bash
 pg_isready -d <DB_NAME> -h <HOST_NAME> -p <PORT_NUMBER> -U <DB_USER>
 ```
@@ -102,22 +117,6 @@ livenessProbe:
   initialDelaySeconds: 10
   periodSeconds: 10
 ```
-
-## Tips
-
-### Useful Commands
-```bash
-kubectl get pods ;
-kubectl describe pod <POD_NAME> ;
-kubectl logs <POD_NAME> ;
-kubectl exec -it <POD_NAME> -- /bin/sh
-```
-
-## Questions to observe during the exercise
-  - What is the difference between readiness and liveness?
-  - What happens when a readiness probe fails?
-  - What happens when a liveness probe fails?
-  - Why is it useful to use different probe types for different applications?
 
 ## Links
 
