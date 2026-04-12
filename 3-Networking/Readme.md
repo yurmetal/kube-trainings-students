@@ -119,10 +119,8 @@ To make the frontend accessible from outside the cluster, create an IngressRoute
 
 1. Edit the file `todo-app-ingress.yaml`.
 2. Adjust the following fields:  
-    - metadata.name  
-    This name must be unique across the entire Kubernetes cluster.
-    - spec.routes.services  
-    Configure it to point to the todo-app-frontend Service created earlier.
+    - `metadata.name` - This name must be unique across the entire Kubernetes cluster.
+    - `spec.routes.services` - Configure it to point to the todo-app-frontend Service created earlier.
 3. Create or apply the Ingress configuration:  
 
     ```bash
