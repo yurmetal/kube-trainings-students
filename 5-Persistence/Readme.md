@@ -18,10 +18,10 @@ Let's first verify whether the todo data is still available after restarting the
    ```  
    
    ```bash
-   kubectl rollout restart deployment <TODO_APP_BACKEND_DEPLOYMENT>
+   kubectl rollout restart deployment <TODO_APP_BACKEND_DEPLOYMENT_NAME>
    ```  
 
-    Replace `<TODO_APP_BACKEND_DEPLOYMENT>` with the name of a backend `Deployment`.  
+    Replace `<TODO_APP_BACKEND_DEPLOYMENT_NAME>` with the name of a backend `Deployment`.  
 
 3. Refresh the todo app in your browser.
 4. Check whether your todos are still visible.  
@@ -80,7 +80,7 @@ Verify whether the todos are stored in the database
     ```  
 
     ```bash
-    kubectl delete pod <TODO_APP_BACKEND_POD>
+    kubectl rollout restart deployment <TODO_APP_BACKEND_DEPLOYMENT_NAME>
     ```
 
 3. Refresh the todo app and check whether the todos are still visible.  
@@ -94,7 +94,7 @@ Verify whether the todos are stored in the database
     ```  
 
     ```bash
-    kubectl rollout restart deployment <TODO_APP_POSTGRES_DATABASE_DEPLOYMENT_NAME>
+    kubectl rollout restart deployment <TODO_APP_DATABASE_DEPLOYMENT_NAME>
     ```  
 
 5. Refresh the todo app and check whether the todos are still visible.
@@ -190,7 +190,7 @@ Verify if the postgres database stores the data in the PVC.
     ```  
 
     ```bash
-    kubectl delete pod <TODO_APP_POSTGRES_DATABASE_POD_NAME>
+    kubectl rollout restart deployment <TODO_APP_DATABASE_DEPLOYMENT_NAME>
     ```
 
 3. Refresh the todo app and check whether the todos are still visible.  
