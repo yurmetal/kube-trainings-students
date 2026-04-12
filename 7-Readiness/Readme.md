@@ -99,7 +99,27 @@ The backend provides the following API endpoints:
 
 2. Use a suitable backend endpoint for the probe configuration.
 3. Apply the changes and verify that the backend Pod becomes Ready and Running.
-4. Then delete the PostgreSQL StatefulSet Pod and observe what happens to the backend Pod and the application.
+4. Verify the backend API manually from inside the **Backend** Pod:  
+
+    ```bash
+    kubectl get pods
+    ```  
+
+    ```bash
+    kubectl exec -it <TODO_APP_BACKEND_POD> -- /bin/sh
+    ```  
+
+    Inside the container, test the endpoint:  
+
+    ```bash
+    curl http://localhost:8080/api/info
+    ```  
+
+    You should see:  
+
+    ```text
+    We <3 Kubernetes
+    ```
 
 ### Step 3
 Add readiness and liveness probes to PostgreSQL using commands.  
