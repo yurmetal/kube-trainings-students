@@ -74,6 +74,12 @@ Now update the file `todo-app-postgres-database-statefulset.yaml` so that each P
     kubectl get pvc
     ```  
 
+6. Restart the `todo-app-backend` `Deployment` to avoid possible issues after the database redeployment:  
+
+    ```bash
+    kubectl rollout restart deployment <TODO_APP_BACKEND_DEPLOYMENT_NAME>
+    ```
+
 **Example: volumeClaimTemplates**
 ```yaml
   spec:
