@@ -18,11 +18,10 @@ Let's first verify whether the todo data is still available after restarting the
    ```  
    
    ```bash
-   kubectl delete pod <TODO_APP_BACKEND_POD>
+   kubectl rollout restart deployment <TODO_APP_BACKEND_DEPLOYMENT>
    ```  
 
-    Replace <TODO_APP_BACKEND_POD> with the name of a backend Pod.  
-    Repeat this step for all backend Pods.  
+    Replace <TODO_APP_BACKEND_DEPLOYMENT> with the name of a backend Deployment.  
 
 3. Refresh the todo app in your browser.
 4. Check whether your todos are still visible.  
