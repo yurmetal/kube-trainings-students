@@ -11,18 +11,25 @@ The frontend application supports built-in basic authentication, which can be en
 
 1. Edit the file `todo-app-deployment.yaml`.
 2. In the `todo-app-frontend` Deployment, add the following environment variables to the `frontend` container:  
+
     - `TODO_APP_AUTH=on`
     - `TODO_APP_SECURITY_ENABLED=on`
+
 3. Apply the changes to the cluster:  
+
     ```bash
     kubectl apply -f todo-app-deployment.yaml
     ```
+
 4. Verify that the frontend Pod has been restarted:  
+
     ```bash
     kubectl get pods
     ```
+
 5. Open the todo app in your browser and check whether a basic authentication prompt appears.
 6. Log in using the default credentials:  
+
     - Username: `admin`
     - Password: `admin`
 
@@ -46,26 +53,35 @@ Now create your own credentials by storing them in a Kubernetes Secret and refer
 1. Edit the file `todo-app-deployment.yaml`.
 2. Add a `Secret` resource with the name `todo-app-basic-auth`.
 3. In the data section of the Secret, add the following base64-encoded values:  
+
     - Username: `admin`
     - Password: `password123`
+
 4. Apply the changes:  
+
     ```bash
     kubectl apply -f todo-app-deployment.yaml
     ```
+
 5. Verify that the Secret was created successfully:  
+
     ```bash
     kubectl get secrets
     ```
+
 6. In the `todo-app-frontend` Deployment, add the following environment variables to the frontend container:  
+
     - TODO_APP_AUTH_USERNAME
     - TODO_APP_AUTH_PASSWORD  
 
     Both values must be loaded from the `todo-app-basic-auth` Secret.
 7. Apply the updated Deployment:  
+
     ```bash
     kubectl apply -f todo-app-deployment.yaml
     ```
 8. Verify that the frontend Pod has restarted:  
+
     ```bash
     kubectl get pods
     ```
@@ -100,6 +116,7 @@ env:
 ## Tips
 
 **Useful Commands**
+
 ```bash
 kubectl get pods ;
 kubectl get secrets ;
