@@ -215,32 +215,6 @@ Verify if the postgres database stores the data in the PVC.
 
     > At this point, the todos should still be available because PostgreSQL now stores its data on the PVC.
 
-### Step 7
-Scale the PostgreSQL database.  
-Sometimes applications need to scale.  
-Now try to scale the PostgreSQL Deployment and observe what happens.  
-
-1. Edit the file `todo-app-postgres-database-deployment.yaml` and set `spec.replicas` to `2`.
-2. Apply the change:  
-
-    ```bash
-    kubectl apply -f todo-app-postgres-database-deployment.yaml
-    ```
-
-3. Verify whether two PostgreSQL Pods are created:  
-
-    ```bash
-    kubectl get pods
-    ```
-
-4. If scaling does not work as expected, inspect one of the Pods:  
-
-    ```bash
-    kubectl describe pod <TODO_APP_POSTGRES_DATABASE_POD_NAME>
-    ```  
-
-    > A second PostgreSQL Pod is not expected to run successfully in this setup.
-
 ## Links
 
 [Volumes Documentation](https://kubernetes.io/docs/concepts/storage/volumes/)
