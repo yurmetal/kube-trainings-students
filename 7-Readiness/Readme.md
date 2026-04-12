@@ -121,6 +121,21 @@ The backend provides the following API endpoints:
     We <3 Kubernetes
     ```
 
+### Step 3
+Delete all resources:  
+
+```bash
+kubectl delete -f task-database.yaml
+```  
+
+```bash
+kubectl delete -f task-deployment.yaml
+```  
+
+```bash
+kubectl delete pvc postgres-pvc-postgres-database-x
+```
+
 ## Links
 
 [Configure Liveness, Readiness and Startup Probes](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)  
