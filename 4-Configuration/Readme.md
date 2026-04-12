@@ -101,6 +101,10 @@ data:
 **Example: Secret Reference in Environment Variables**
 ```yaml
 env:
+  - name: TODO_APP_AUTH
+    value: "on"
+  - name: TODO_APP_SECURITY_ENABLED
+    value: "on"
   - name: TODO_APP_AUTH_USERNAME
     valueFrom:
       secretKeyRef:
