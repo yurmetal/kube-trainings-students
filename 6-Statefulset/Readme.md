@@ -34,7 +34,7 @@ Clean up the resources from the previous task.
 Create a statefulset with a volumeClaimTemplate.  
 Now update the file `todo-app-postgres-database-statefulset.yaml` so that each PostgreSQL Pod automatically gets its own PVC.
 
-1. Add a volumeClaimTemplates section to the StatefulSet with the following configuration:  
+1. Add a `volumeClaimTemplates` section to the `StatefulSet` with the following configuration:  
 
     - Name: `postgres-pvc`
     - Access mode: `ReadWriteOnce`
@@ -76,16 +76,37 @@ Now update the file `todo-app-postgres-database-statefulset.yaml` so that each P
 
 **Example: volumeClaimTemplates**
 ```yaml
-spec:
-  volumeClaimTemplates:
-    - metadata:
-        name: postgres-pvc
-      spec:
-        accessModes:
-          - ReadWriteOnce
-        resources:
-          requests:
-            storage: 1Gi
+  spec:
+    containers:
+    - name: postgres
+      image: postgres:11.2
+      ports:
+      - containerPort: 5432
+      env:
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: todo-app-database-secret
+              key: POSTGRES_USERNAME
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: todo-app-database-secret
+              key: POSTGRES_PASSWORD
+        - name: POSTGRES_DB
+          valueFrom:
+            secretKeyRef:
+              name: todo-app-database-secret
+              key: POSTGRES_DATABASE_NAME
+volumeClaimTemplates:
+  - metadata:
+      name: postgres-pvc
+    spec:
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: 1Gi
 ```
 
 ### Step 3
