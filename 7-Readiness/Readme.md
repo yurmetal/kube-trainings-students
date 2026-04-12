@@ -79,32 +79,27 @@ The backend provides the following API endpoints:
   - `POST /api/task` - create a new task
   - `GET /api/info` - returns **We <3 Kubernetes**
 
-1. Add a readinessProbe to the backend using HTTP.
-2. Add a livenessProbe to the backend using HTTP.
-3. Use a suitable backend endpoint for the probe configuration.
-4. Apply the changes and verify that the backend Pod becomes Ready and Running.
-5. Then delete the PostgreSQL StatefulSet Pod and observe what happens to the backend Pod and the application.
-6. Think about the following questions:  
+1. Add a `readinessProbe` and `livenessProbe` to the backend using HTTP.  
 
-    - Why is PostgreSQL running as a StatefulSet?
-    - What happens to the data when the PostgreSQL Pod is restarted?
+    **Example: HTTP Probe**
+    ```yaml
+    readinessProbe:
+      httpGet:
+        path: /api/info
+        port: 8080
+      initialDelaySeconds: 5
+      periodSeconds: 5
+    livenessProbe:
+      httpGet:
+        path: /api/info
+        port: 8080
+      initialDelaySeconds: 10
+      periodSeconds: 10
+    ```
 
-**Example: HTTP Probe**
-```yaml
-readinessProbe:
-  httpGet:
-    path: /api/info
-    port: 8080
-  initialDelaySeconds: 5
-  periodSeconds: 5
-
-livenessProbe:
-  httpGet:
-    path: /api/info
-    port: 8080
-  initialDelaySeconds: 10
-  periodSeconds: 10
-```
+2. Use a suitable backend endpoint for the probe configuration.
+3. Apply the changes and verify that the backend Pod becomes Ready and Running.
+4. Then delete the PostgreSQL StatefulSet Pod and observe what happens to the backend Pod and the application.
 
 ### Step 3
 Add readiness and liveness probes to PostgreSQL using commands.  
