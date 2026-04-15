@@ -78,7 +78,7 @@ You can keep both Deployments in the same file and separate them with `---`.
       apiVersion: apps/v1
       kind: Deployment
       metadata:
-      name: todo-app-frontend
+        name: todo-app-frontend
       spec:
 
       ---
@@ -86,7 +86,7 @@ You can keep both Deployments in the same file and separate them with `---`.
       apiVersion: apps/v1
       kind: Deployment
       metadata:
-      name: todo-app-backend
+        name: todo-app-backend
       spec:
       ```
 
