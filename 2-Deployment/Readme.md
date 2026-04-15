@@ -15,17 +15,17 @@ Create a Deployment definition based on the Pod definition from Task 1.
    spec:
       containers:
       - name: frontend
-         image: <YOUR_FRONTEND_IMAGE>
-         ports:
-            - containerPort: 9080
+        image: <YOUR_FRONTEND_IMAGE>
+        ports:
+          - containerPort: 9080
       - name: backend
-         image: <YOUR_BACKEND_IMAGE>
-         ports:
-            - containerPort: 8080
+        image: <YOUR_BACKEND_IMAGE>
+        ports:
+          - containerPort: 8080
       hostAliases:
          - ip: "127.0.0.1"
-            hostnames:
-            - "todo-app-backend"
+           hostnames:
+           - "todo-app-backend"
    ```
 
 2. Create the Deployment in the Kubernetes cluster:  
